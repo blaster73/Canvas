@@ -79,13 +79,27 @@
 		context.fillText("Circles " + i, canvas.width/2, canvas.height/2); 
 	}
 	
-	function customShape(i) {
+	function mySignature(i) {
 	    context.beginPath();
-		context.moveTo(300, 200);
-		context.lineTo(275, 250);
-		context.lineTo(250, 300);
-		context.bezierCurveTo(i, 150, 420, 120, 390, 100);
-		context.bezierCurveTo(200, 5, 150, i, 170, 80);
+		context.moveTo(150, 200);
+		context.lineTo(150, 250);
+		context.lineTo(150, 300);
+		context.bezierCurveTo(i, 150, 225, 120, 150, 250);
+		context.bezierCurveTo(200, 5, 150, i, 150, 200);
+		context.closePath();
+		context.lineWidth = 3;
+		context.strokeStyle = 'darkred';
+		context.stroke();
+	}
+	
+		function fillerShape() {
+	    context.beginPath();
+		context.moveTo(300, 225);
+		context.lineTo(300, 250);
+		context.lineTo(300, 300);
+		context.bezierCurveTo(315, 315, 325, 325, 300, 250);
+		context.bezierCurveTo(300, 300, 325, 325, 300, 225);
+		
 		context.closePath();
 		context.lineWidth = 3;
 		context.strokeStyle = 'dark-red';
@@ -125,7 +139,8 @@
 			drawSquare(i);
 			textBack();
 			drawText(i);
-			customShape(i);
+			mySignature(i);
+			fillerShape();
 			grade(i);
 			if (i >= 100) {
 				youWin();
