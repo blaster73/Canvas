@@ -1,11 +1,10 @@
 <html><head>
-<title>Benjamin Allen</title>
+<title>Can you make 150 circles?</title>
 <script>
 	var canvas;
 	var context;
 	var circles = [];
 	var timer;
-	
 	
 	function Circle(x, y, color) {
 		this.x = x;
@@ -15,7 +14,6 @@
 		this.color = color;
 	}
 	
-
 	function init() {
         canvas = document.getElementById('canvas');
         context = canvas.getContext("2d");
@@ -27,8 +25,6 @@
 			handleClick(event.clientX, event.clientY);
 		};
 		timer = setInterval(resizeCanvas, 20);
-		
-		
     }
 	  
 	function handleClick(x, y) {
@@ -42,7 +38,7 @@
 		}
 		fillBackgroundColor();
 		if (!found) {
-			var colors = ["white", "green", "blue", "orange", "purple", "yellow"];
+			var colors = ["aqua", "palegreen", "blue", "crimson", "purple", "deeppink"];
 			var color = colors[Math.floor(Math.random()*colors.length)];
 			circles.push(new Circle(x, y, color));
 		}
@@ -51,18 +47,30 @@
 		}
 	}
 	
+	//lol m2k
+	
 	
 	function drawSquare(i) {
-	context.fillRect(i+1,i+2,25+i,50);
-	context.fillRect(675-i,350-i,25+i,50);
+	context.fillRect(0+(i*1.5),0+(i*1.5),25+i,50);
+	context.fillRect(675-(i*1.5),350-(i*1.5),25+i,50);
+	context.fillRect(675-(i*1.5),0+(i*1.5),25+i,50);
+	context.fillRect(0+(i*1.5),350-(i*1.5),25+i,50);
 	}
 
+	//I just ran out of fruit snacks
+	//It is truly the end times
 	
 	function textBack() {
 	context.fillStyle = "black";
 	context.fillRect(445,175,60,30)
 	}
 	
+	function youWin() {
+		context.font = "70px Arial";
+		context.fillStyle = "gold";
+		context.textAlign = "end";
+		context.fillText("You Win!", canvas.width/2, canvas.height/2); 
+	}
 	
 	function drawText(i) {
 		context.font = "30px Arial";
@@ -74,15 +82,13 @@
 	function customShape(i) {
 	    context.beginPath();
 		context.moveTo(300, 200);
-		context.bezierCurveTo(130, 100, 130, 150, 230, i);
+		context.lineTo(275, 250);
 		context.lineTo(250, 300);
 		context.bezierCurveTo(i, 150, 420, 120, 390, 100);
-		context.bezierCurveTo(430, 40, 370, i, 340, 50);
-		context.bezierCurveTo(320, i, 250, 20, 250, 50);
 		context.bezierCurveTo(200, 5, 150, i, 170, 80);
 		context.closePath();
 		context.lineWidth = 3;
-		context.strokeStyle = 'purple';
+		context.strokeStyle = 'dark-red';
 		context.stroke();
 	}
 	
@@ -121,21 +127,19 @@
 			drawText(i);
 			customShape(i);
 			grade(i);
+			if (i == 150) {
+			youWin();
+			}
 		}
-		//customShape();
-		
-		
+	
     }
 	 
 	function fillBackgroundColor() {
-		//var colors = ["white", "yellow", "blue", "red"];
-		//var bgColor = colors[Math.floor(Math.random() * colors.length)];
-		context.fillStyle = 'red';
+		context.fillStyle = 'brown';
 		context.fillRect(0, 0, canvas.width, canvas.height);
 	}
 	
 	function degreesToRadians(degrees) {
-		//converts from degrees to radians and returns
 		return (degrees * Math.PI)/180;
 	}
 	
