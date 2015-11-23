@@ -1,0 +1,140 @@
+<html><head>
+<title>Benjamin Allen</title>
+<script>
+	var canvas;
+	var context;
+	var circles = [];
+	var timer;
+	
+	
+	function Circle(x, y, color) {
+		this.x = x;
+		this.y = y;
+		this.dx = Math.random()*4-2;
+		this.dy = Math.random()*4-2;
+		this.color = color;
+	}
+	
+
+	function init() {
+        canvas = document.getElementById('canvas');
+        context = canvas.getContext("2d");
+ 
+        window.addEventListener('resize', resizeCanvas, false);
+        window.addEventListener('orientationchange', resizeCanvas, false);
+        resizeCanvas();
+		canvas.onclick = function(event) {
+			handleClick(event.clientX, event.clientY);
+		};
+		timer = setInterval(resizeCanvas, 20);
+		
+		
+    }
+	  
+	function handleClick(x, y) {
+	    var found = false;
+		for (var i=0; i<circles.length; i++) {
+			d = Math.sqrt((circles[i].x - x)*(circles[i].x - x) + (circles[i].y - y)*(circles[i].y - y));
+			if (d <= 30) {
+				circles.splice(i, 1);
+				found = true;
+			}
+		}
+		fillBackgroundColor();
+		if (!found) {
+			var colors = ["white", "green", "blue", "orange", "purple", "yellow"];
+			var color = colors[Math.floor(Math.random()*colors.length)];
+			circles.push(new Circle(x, y, color));
+		}
+		for (var i=0; i<circles.length; i++) {
+			drawCircle(circles[i]);
+		}
+	}
+	
+	
+	function drawSquare(i) {
+	context.fillRect(i+1,i+2,25+i,50);
+	}
+
+	
+	function textBack() {
+	context.fillStyle = "black";
+	context.fillRect(445,175,60,30)
+	}
+	
+	
+	function drawText(i) {
+		context.font = "30px Arial";
+		context.fillStyle = "white";
+		context.textAlign = "left";
+		context.fillText("Circles " + i, canvas.width/2, canvas.height/2); 
+	}
+	
+	function customShape(i) {
+	    context.beginPath();
+		context.moveTo(170, 80);
+		context.bezierCurveTo(130, 100, 130, 150, 230, i);
+		context.lineTo(250, 300);
+		context.bezierCurveTo(i, 150, 420, 120, 390, 100);
+		context.bezierCurveTo(430, 40, 370, i, 340, 50);
+		context.bezierCurveTo(320, i, 250, 20, 250, 50);
+		context.bezierCurveTo(200, 5, 150, i, 170, 80);
+
+      // complete custom shape
+		context.closePath();
+		context.lineWidth = 3;
+		context.strokeStyle = 'purple';
+		context.stroke();
+	}
+	
+	
+	function drawCircle(circle) {
+		context.beginPath();
+		context.arc(circle.x, circle.y, 30, 0, degreesToRadians(360), true);
+		context.fillStyle = circle.color;
+		context.fill();
+		if (circle.x + circle.dx > canvas.width || circle.x + circle.dx < 0)
+			circle.dx = -circle.dx;
+		if (circle.y + circle.dy > canvas.height || circle.y + circle.dy < 0)
+			circle.dy = -circle.dy;
+		circle.x += circle.dx;
+		circle.y += circle.dy;
+		
+	}
+     
+	 function resizeCanvas() {
+        canvas.width = 700;
+        canvas.height = 400;
+		fillBackgroundColor();
+		for (var i=0; i<circles.length; i++) {
+			drawCircle(circles[i]);
+			drawSquare(i);
+			textBack();
+			drawText(i);
+			customShape(i);
+		}
+		//customShape();
+		
+    }
+	 
+	function fillBackgroundColor() {
+		//var colors = ["white", "yellow", "blue", "red"];
+		//var bgColor = colors[Math.floor(Math.random() * colors.length)];
+		context.fillStyle = 'red';
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	}
+	
+	function degreesToRadians(degrees) {
+		//converts from degrees to radians and returns
+		return (degrees * Math.PI)/180;
+	}
+	
+	window.onload = init;
+
+	</script>
+<style type="text/css"></style></head>
+<body>
+<canvas id="canvas" width="1920" height="661"></canvas>
+	  
+</body>
+</html>
