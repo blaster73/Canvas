@@ -72,7 +72,7 @@
 	
 	function customShape(i) {
 	    context.beginPath();
-		context.moveTo(170, 80);
+		context.moveTo(300, 200);
 		context.bezierCurveTo(130, 100, 130, 150, 230, i);
 		context.lineTo(250, 300);
 		context.bezierCurveTo(i, 150, 420, 120, 390, 100);
@@ -85,6 +85,17 @@
 		context.lineWidth = 3;
 		context.strokeStyle = 'purple';
 		context.stroke();
+	}
+	
+	function grade(i) {
+	var grd = context.createRadialGradient(365+i,115-i,5,90,60,100);
+	grd.addColorStop(0,"white");
+	grd.addColorStop(1,"red");
+
+	// Fill with gradient
+	context.fillStyle=grd;
+	context.fillRect(300,100,150,100);
+	
 	}
 	
 	
@@ -112,8 +123,10 @@
 			textBack();
 			drawText(i);
 			customShape(i);
+			grade(i);
 		}
 		//customShape();
+		
 		
     }
 	 
