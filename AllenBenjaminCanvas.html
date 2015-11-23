@@ -54,6 +54,7 @@
 	
 	function drawSquare(i) {
 	context.fillRect(i+1,i+2,25+i,50);
+	context.fillRect(675-i,350-i,25+i,50);
 	}
 
 	
@@ -79,8 +80,6 @@
 		context.bezierCurveTo(430, 40, 370, i, 340, 50);
 		context.bezierCurveTo(320, i, 250, 20, 250, 50);
 		context.bezierCurveTo(200, 5, 150, i, 170, 80);
-
-      // complete custom shape
 		context.closePath();
 		context.lineWidth = 3;
 		context.strokeStyle = 'purple';
@@ -91,8 +90,6 @@
 	var grd = context.createRadialGradient(365+i,115-i,5,90,60,100);
 	grd.addColorStop(0,"white");
 	grd.addColorStop(1,"red");
-
-	// Fill with gradient
 	context.fillStyle=grd;
 	context.fillRect(300,100,150,100);
 	
