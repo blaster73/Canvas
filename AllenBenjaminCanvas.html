@@ -1,5 +1,5 @@
 <html><head>
-<title>Can you make 150 circles?</title>
+<title>100 Circles</title>
 <script>
 	var canvas;
 	var context;
@@ -24,7 +24,7 @@
 		canvas.onclick = function(event) {
 			handleClick(event.clientX, event.clientY);
 		};
-		timer = setInterval(resizeCanvas, 20);
+		timer = setInterval(resizeCanvas, 10);
     }
 	  
 	function handleClick(x, y) {
@@ -127,11 +127,10 @@
 			drawText(i);
 			customShape(i);
 			grade(i);
-			if (i == 150) {
-			youWin();
+			if (i >= 100) {
+				youWin();
 			}
 		}
-	
     }
 	 
 	function fillBackgroundColor() {
